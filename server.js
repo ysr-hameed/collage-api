@@ -51,7 +51,15 @@ const registerPlugins = async () => {
       schemes: ['http', 'https'],
       consumes: ['application/json'],
       produces: ['application/json'],
+      securityDefinitions: {
+        bearerAuth: {
+          type: 'apiKey',
+          name: 'Authorization',
+          in: 'header'
+        }
+      },
       tags: [
+        { name: 'Health', description: 'Health check endpoints' },
         { name: 'Auth', description: 'Authentication related endpoints' },
         { name: 'Students', description: 'Student management endpoints' },
         { name: 'Courses', description: 'Course management endpoints' },

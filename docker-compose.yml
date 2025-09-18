@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:5.0
+    container_name: collage_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: collage_db
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - collage_network
+
+  # Collage API
+  api:
+    build: .
+    container_name: collage_api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/collage_db
+      - JWT_SECRET=your_secure_jwt_secret_here
+    depends_on:
+      - mongodb
+    networks:
+      - collage_network
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  mongodb_data:
+
+networks:
+  collage_network:
+    driver: bridge

@@ -2,9 +2,10 @@
   "name": "collage-api",
   "version": "1.0.0",
   "description": "Collage Rest API for Tier 3 Cities",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
